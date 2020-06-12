@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "monk": "^7.3.0",
     "node-forge": "^0.9.1",
+    "vue": "^2.6.11",
     "yup": "^0.29.1"
   },
   "devDependencies": {

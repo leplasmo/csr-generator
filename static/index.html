@@ -1,70 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CSR Generator</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <section class="section">
-      <div class="container">
-        <h1 class="title">CSR Generator</h1>
-        <h2 class="subtitle">A tool to generate certificate signing requests</h2>
-        <p class="has-text-right is-size-7" id="version-info">(v0.1 - <a href="./about.html">about</a>)</p>
-        <div class="field">
-          <div class="field-label">
-            <label class="label has-text-left">Common-Name</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <input class="input is-primary" type="text" id= "common-name" placeholder="mysite.example.com">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <div class="field-label">
-            <label class="label has-text-left">Subject-Alternative-Names</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <textarea class="textarea is-primary" id="subj-alt-names" placeholder="Please use FQDN and/or IP addresses only. Other SAN types will not be parsed."></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="control has-text-right">
-          <button class="button is-primary" id="generate-csr">Submit</button>
-        </div>
-        <progress class="progress is-small is-primary" id="progress" max="100"></progress>
-      </div>
-    </section>
-    <section>
-      <div class="container is-family-code is-size-7" id="result">
-        <div class="columns is-variable is-3-desktop is-8-widescreen is-2-fullhd">
-          <div class="column">
-            <div class="container">
-              <span id="result-pk">
-                <!--RESULT: PRIVATE KEY-->
-              </span>   
-            </div>
-          </div>
-          <div class="column">
-            <div class="container">
-              <p id="result-csr">
-                <!--RESULT: SIGNING REQUEST-->
-              </span>
-            </div>
-          </div>
-        </div>
-        <span class="has-text-right" id="performance">
-          <!--PERFORMANCE: COUNTER-->
+    <header>
+      <h1 class="title">CSR Generator</h1>
+    </header>
+    <main id="app">
+      <div class="column text-right">
+        <span class="version">
+          (v0.1 - <a href="./about.html">about</a>)
         </span>
       </div>
-    </section>
-    <script src="script.js"></script>
+      <form class="form" v-if="formVisible" @submit.prevent="createCsr()">
+        <div v-if="error" class="error">
+          {{error}}
+        </div>
+        <label for="common-name" class="label">common-name:</label>
+        <input v-model="commonName" type="text" class="input" id="common-name" placeholder="mysite.example.com">
+        <label for="subj-alt-names" class="label">subject-alternative-name(s):</label>
+        <textarea v-model="subjAltNames" class="textarea" id="subj-alt-names" placeholder="Please use FQDN and/or IP addresses only. Other SAN types will not be parsed."></textarea>
+        <button type="submit" class="create">create</button>
+      </form>
+      <div v-if="created" class="row">
+        <span v-text="privateKey" class="column" id="privateKey">
+        </span>
+        <span v-text="csr" class="column" id="csr">
+        </span>
+      </div>
+      <div v-if="created" class="text-right">
+        <span v-text="performance">
+        </span>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="app.js"></script>
   </body>
 </html>
