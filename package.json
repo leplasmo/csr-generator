@@ -1,0 +1,27 @@
+{
+  "name": "csr-generator",
+  "version": "0.1.0",
+  "description": "Certificate Signing Request Generator",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "jest"
+  },
+  "repository": "https://github.com/leplasmo/csr-generator.git",
+  "author": "leplasmo",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "monk": "^7.3.0",
+    "node-forge": "^0.9.1",
+    "yup": "^0.29.1"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
+    "cross-env": "^7.0.2",
+    "jest": "^26.0.1"
+  }
+}
